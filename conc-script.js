@@ -22,9 +22,23 @@ concentration = {
     this.activeCard = undefined;
     this.matches = 0;
     this.busy = false;
+    this.instructions();
     this.populateCards();
     this.shuffleCards();
     this.displayCards();
+  },
+
+  instructions: function() {
+    instButton = document.querySelector(".inst-container button");
+    instButton.addEventListener("click", function() {
+      instText = document.querySelector(".inst-container p");
+      if (instText.style.visibility == "hidden"){
+        instText.style.visibility = "visible";
+      }
+      else {
+        instText.style.visibility = "hidden";
+      }
+    })
   },
 
   //create the deck
@@ -112,4 +126,7 @@ concentration = {
 function playGame(){
   concentration.initialize();
 }
+
+
+
 playGame()
