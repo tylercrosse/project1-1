@@ -16,9 +16,9 @@ concentration = {
         document.querySelector(".card-area").removeChild(oldCards[i]);
       }
     }
+    this.deckTheme = this.shapes.slice(0, this.shapes.length),
     this.deck = [];
     this.moves = 0;
-    this.deckTheme = this.shapes.slice(0, this.shapes.length)
     this.activeCard = undefined;
     this.matches = 0;
     this.populateCards();
@@ -101,8 +101,11 @@ concentration = {
 
   winnerIsYou: function(){
     console.log("woohoo! you won the game!");
-    setTimeout(this.initialize(), 5000)
+    setTimeout(playGame, 5000)
   }
 }
 
-concentration.initialize();
+function playGame(){
+  concentration.initialize();
+}
+playGame()
