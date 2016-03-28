@@ -31,18 +31,28 @@ function shuffleCards() {
 // display cards
 function displayCards(){
   for(var i = 0; i < deck.length; i++){
+    // make card slot
+    cardCont = document.createElement("div");
+    cardCont.classList.add("card-container", "con" + parseInt(i));
+    document.querySelector(".card-area").appendChild(cardCont);
+
+    // make card back
+    cardBack = document.createElement("div");
+    cardBack.classList.add("layer");
+    document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
+
+    // make card front
     cardID = deck[i];
     cardDiv = document.createElement("div");
-    cardDiv.classList.add(cardID);
-    cardDiv.classList.add("card");
-    document.querySelector(".card-area").appendChild(cardDiv);
+    cardDiv.classList.add(cardID, "card");
+    document.querySelector(".con"+ parseInt(i)).appendChild(cardDiv);
     cardDiv.innerHTML = cardID;
   }
 }
 
-
 // rounds:
 //  player chooses first card
+
 //  player chooses second card
 //  check for match
 //   if no match: wait 2 seconds, flip back over
