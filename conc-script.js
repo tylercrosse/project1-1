@@ -36,17 +36,17 @@ function displayCards(){
     cardCont.classList.add("card-container", "con" + parseInt(i));
     document.querySelector(".card-area").appendChild(cardCont);
 
-    // make card back
-    cardBack = document.createElement("div");
-    cardBack.classList.add("layer");
-    document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
-
     // make card front
     cardID = deck[i];
     cardDiv = document.createElement("div");
     cardDiv.classList.add(cardID, "card");
     document.querySelector(".con"+ parseInt(i)).appendChild(cardDiv);
     cardDiv.innerHTML = cardID;
+
+    // make card back
+    cardBack = document.createElement("div");
+    cardBack.classList.add("layer");
+    document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
   }
 }
 
