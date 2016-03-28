@@ -21,6 +21,7 @@ concentration = {
     this.moves = 0;
     this.activeCard = undefined;
     this.matches = 0;
+    this.busy = false;
     this.populateCards();
     this.shuffleCards();
     this.displayCards();
@@ -67,33 +68,36 @@ concentration = {
       document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
 
       //make card listener
-      cardBack.addEventListener("click", this.playCard)
+      cardBack.addEventListener("click", this.playCard);
     }
   },
 
   playCard: function() {
-    concentration.moves++;
-    //  player chooses first card
-    if ((concentration.moves % 2) === 1) {
-      // turn over card
-      this.style.opacity = 0;
-      // activeCard gets clicked card's class
-      activeCard = this.classList[1];
-      first = this;
-    }
-    //  player chooses second card
-    if ((concentration.moves % 2) === 0){
-      // turn over card
-      this.style.opacity = 0;
-      // if no match: wait 1 second, flip both back over
-      if (activeCard != this.classList[1]){
-        var self = this;
-        setTimeout(function() {first.style.opacity = 1; self.style.opacity = 1}, 1000)
+    if (concentration.busy === false){
+      concentration.moves++;
+      //  player chooses first card
+      if ((concentration.moves % 2) === 1) {
+        // turn over card
+        this.style.opacity = 0;
+        // activeCard gets clicked card's class
+        activeCard = this.classList[1];
+        first = this;
       }
-      else {
-        concentration.matches++;
-        if(concentration.matches===concentration.numSymbols){
-          concentration.winnerIsYou();
+      //  player chooses second card
+      if ((concentration.moves % 2) === 0){
+        // turn over card
+        this.style.opacity = 0;
+        // if no match: wait 1 second, flip both back over
+        if (activeCard != this.classList[1]){
+          concentration.busy = true;
+          var self = this;
+          setTimeout(function() {first.style.opacity = 1; self.style.opacity = 1; concentration.busy = false;}, 1000)
+        }
+        else {
+          concentration.matches++;
+          if(concentration.matches===concentration.numSymbols){
+            concentration.winnerIsYou();
+          }
         }
       }
     }
