@@ -28,11 +28,18 @@ function shuffleCards() {
   }
 }
 
-populateCards();
-shuffleCards();
-console.log(deck);
-
 // display cards
+function displayCards(){
+  for(var i = 0; i < deck.length; i++){
+    cardID = deck[i];
+    cardDiv = document.createElement("div");
+    cardDiv.classList.add(cardID);
+    cardDiv.classList.add("card");
+    document.querySelector(".card-area").appendChild(cardDiv);
+    cardDiv.innerHTML = cardID;
+  }
+}
+
 
 // rounds:
 //  player chooses first card
@@ -43,3 +50,10 @@ console.log(deck);
 // if all matches are made, leave round loop. otherwise, restart
 
 // begin new game
+
+
+
+populateCards();
+shuffleCards();
+console.log(deck);
+displayCards()

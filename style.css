@@ -1,0 +1,13 @@
+.card-area {
+  width: 450px;
+  height: 450px;
+  margin: auto;
+}
+
+.card {
+  float: left;
+  width: 80px;
+  height: 80px;
+  margin: 10px;
+  background: lemonchiffon;
+}
