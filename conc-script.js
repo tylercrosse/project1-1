@@ -1,13 +1,21 @@
 
 concentration = {
-  // lists of potential card faces
+  // lists of potential card faces - to switch, change this.theme
+  // and deckTheme in initialize
   shapes: ['triangle', 'square', 'circle', 'parallelogram', 'pentagon', 'octagon', 'hexagon', 'rectangle'],
   // deck variables
+  theme: "shapes",
   numCards: 16,
   numSymbols: 8,
 
   initialize: function() {
     console.log("Beginning game");
+    oldCards = document.querySelectorAll(".card-container")
+    if (oldCards.length > 0) {
+      for (i = 0; i < oldCards.length; i++){
+        document.querySelector(".card-area").removeChild(oldCards[i]);
+      }
+    }
     this.deck = [];
     this.moves = 0;
     this.deckTheme = this.shapes.slice(0, this.shapes.length)
@@ -50,7 +58,8 @@ concentration = {
       cardDiv = document.createElement("div");
       cardDiv.classList.add(cardID, "card");
       document.querySelector(".con"+ parseInt(i)).appendChild(cardDiv);
-      cardDiv.innerHTML = cardID;
+      imageLoc = "url(images/" + this.theme + "/" + cardID + ".jpg)";
+      cardDiv.style.backgroundImage = imageLoc;
 
       // make card back
       cardBack = document.createElement("div");
@@ -91,10 +100,9 @@ concentration = {
   },
 
   winnerIsYou: function(){
-    console.log("woohoo!");
+    console.log("woohoo! you won the game!");
+    setTimeout(this.initialize(), 5000)
   }
 }
-
-// begin new game
 
 concentration.initialize();

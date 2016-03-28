@@ -1,24 +1,24 @@
 
 .card-area {
-  width: 450px;
-  height: 450px;
+  width: 480px;
+  height: 480px;
   margin: auto;
 }
 
 .card-container {
   position: relative;
   float: left;
-  width: 80px;
-  height:80px;
+  width: 100px;
+  height:100px;
   margin: 10px;
 }
 
 .card {
   position: relative;
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   margin: 10px;
-  background: purple;
+
   text-align: center;
 }
 
