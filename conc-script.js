@@ -7,6 +7,8 @@ concentration = {
   theme: "shapes",
   numCards: 16,
   numSymbols: 8,
+  minutes: 00,
+  seconds: 00,
 
   initialize: function() {
     console.log("Beginning game");
@@ -22,6 +24,7 @@ concentration = {
     this.activeCard = undefined;
     this.matches = 0;
     this.busy = false;
+    this.timer();
     this.instructions();
     this.populateCards();
     this.shuffleCards();
@@ -39,6 +42,36 @@ concentration = {
         instText.style.visibility = "visible";
       }
     })
+  },
+
+  //set the timer!
+  timer: function() {
+
+    seconds = 00;
+    minutes = 00;
+    var appendSeconds = document.querySelector(".seconds");
+    var appendMinutes = document.querySelector(".minutes");
+    var cInterval = setInterval(startTimer, 1000);
+    function startTimer() {
+      if (concentration.matches==concentration.numSymbols){
+        console.log("It took you " + minutes + " minutes and " + seconds + " seconds!");
+        clearInterval(cInterval);
+      }
+      seconds++;
+      if (seconds < 10) {
+        appendSeconds.innerHTML = "0" + seconds;
+        appendMinutes.innerHTML = "00"
+      }
+      else if (seconds < 60) {
+        appendSeconds.innerHTML = seconds;
+      }
+      else if (seconds > 60) {
+        minutes++;
+        appendMinutes.innerHTML = "0" + minutes;
+        seconds = 0;
+        appendSeconds.innerHTML = "00";
+      }
+    }
   },
 
   //create the deck
