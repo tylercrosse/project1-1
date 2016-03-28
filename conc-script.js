@@ -6,22 +6,25 @@ var shapes = ['triangle', 'square', 'circle', 'parallelogram', 'pentagon', 'octa
 // deck variables
 var numCards = 16;
 var numSymbols = numCards / 2;
-var deckRaw = [];
 var deck = [];
 deckTheme = shapes;
+var moves = 0;
+var activeCard;
+var lastCard;
 
 // populate cards
 function populateCards() {
   for (var i = 0; i < numSymbols; i++){
-    deckRaw.push(deckTheme[i]);
-    deckRaw.push(deckTheme[i]);
+    deck.push(deckTheme[i]);
+    deck.push(deckTheme[i]);
   }
 }
 
 // shuffle cards
 function shuffleCards() {
-  i = 0
-  while (i < deckRaw.length){
+  var deckRaw = deck.slice(0, deck.length);
+  deck = []
+  while (deckRaw.length > 0){
     var newCard = parseInt(Math.random() * deckRaw.length)
     deck.push(deckRaw[newCard]);
     deckRaw.splice(newCard, 1);
@@ -45,18 +48,56 @@ function displayCards(){
 
     // make card back
     cardBack = document.createElement("div");
-    cardBack.classList.add("layer");
+    cardBack.classList.add("layer", cardID);
     document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
+
+    //make card listener
+    cardBack.addEventListener("click", playCard)
   }
 }
 
-// rounds:
+function playCard() {
+  moves++;
+  //  player chooses first card
+  if ((moves % 2) === 1) {
+    // turn over card
+    this.style.opacity = 0;
+    // activeCard gets clicked card's class
+    activeCard = this.classList[1];
+    first = this;
+  }
+  //  player chooses second card
+  if ((moves % 2) === 0){
+    // turn over card
+    this.style.opacity = 0;
+    // check for match
+
+    // if no match: wait 2 seconds, flip both back over
+    if (activeCard != this.classList[1]){
+      var self = this;
+      setTimeout(function() {first.style.opacity = 1; self.style.opacity = 1}, 1000)
+    }
+    // else do nothing
+  }
+}
+
+// round:
+
 //  player chooses first card
 
+if ((moves % 2) === 1) {
+  // turn over card (cardBack opacity: 0)
+  // activeCard gets clicked card's class
+}
 //  player chooses second card
+if ((moves % 2) === 0){
 //  check for match
 //   if no match: wait 2 seconds, flip back over
 //   else do nothing
+}
+
+
+
 // if all matches are made, leave round loop. otherwise, restart
 
 // begin new game
