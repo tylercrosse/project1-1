@@ -54,7 +54,10 @@ concentration = {
     var cInterval = setInterval(startTimer, 1000);
     function startTimer() {
       if (concentration.matches==concentration.numSymbols){
-        console.log("It took you " + minutes + " minutes and " + seconds + " seconds!");
+        winMessage = document.createElement("div");
+        winMessage.classList.add("message");
+        winMessage.innerHTML = "It took you " + minutes + " minutes and " + seconds + " seconds!";
+        document.querySelector(".messages").appendChild(winMessage);
         clearInterval(cInterval);
       }
       seconds++;
@@ -151,15 +154,12 @@ concentration = {
   },
 
   winnerIsYou: function(){
-    console.log("woohoo! you won the game!");
-    setTimeout(playGame, 5000)
+    setTimeout(playGame, 5000);
   }
 }
 
 function playGame(){
   concentration.initialize();
 }
-
-
 
 playGame()
