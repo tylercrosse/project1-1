@@ -20,8 +20,6 @@ concentration = {
     this.checkTheme();
     this.numCards = this.deckTheme.length * 2;
     this.numSymbols = this.deckTheme.length;
-    this.minutes = 00;
-    this.seconds = 00;
     this.timer();
     this.populateCards();
     this.shuffleCards();
@@ -29,11 +27,12 @@ concentration = {
   },
 
   timer: function() {
+    console.log("timer invoked")
     seconds = 00;
     minutes = 00;
     var appendSeconds = document.querySelector(".seconds");
     var appendMinutes = document.querySelector(".minutes");
-    var cInterval = setInterval(startTimer, 1000);
+    cInterval = setInterval(startTimer, 1000);
     function startTimer() {
       if (concentration.matches==concentration.numSymbols){
         clearInterval(cInterval);
@@ -45,7 +44,7 @@ concentration = {
       seconds++;
       if (seconds < 10) {
         appendSeconds.innerHTML = "0" + seconds;
-        appendMinutes.innerHTML = "00"
+  //      appendMinutes.innerHTML = "00"
       }
       else if (seconds < 60) {
         appendSeconds.innerHTML = seconds;
@@ -79,9 +78,9 @@ concentration = {
       this.deckTheme = this.space.slice(0, this.space.length);
       playArea.style.width = "720px";
     }
-    shButton.addEventListener("click", playGame);
-    anButton.addEventListener("click", playGame);
-    spButton.addEventListener("click", playGame);
+    shButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
+    anButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
+    spButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
   },
 
   populateCards: function() {
