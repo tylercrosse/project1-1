@@ -39,11 +39,11 @@ concentration = {
     var cInterval = setInterval(startTimer, 1000);
     function startTimer() {
       if (concentration.matches==concentration.numSymbols){
+        clearInterval(cInterval);
         winMessage = document.createElement("div");
         winMessage.classList.add("message");
         winMessage.innerHTML = "It took you " + minutes + " minutes and " + seconds + " seconds!";
         document.querySelector(".messages").appendChild(winMessage);
-        clearInterval(cInterval);
       }
       seconds++;
       if (seconds < 10) {
