@@ -3,22 +3,16 @@ concentration = {
   shapes: ['triangle', 'square', 'circle', 'parallelogram', 'pentagon', 'octagon', 'hexagon', 'rectangle'],
   animals: ['sheep', 'cow', 'cat', 'pig', 'bird', 'octopus', 'fox', 'dog'],
   space: ['crab1', 'crab2', 'eagle', 'jupiter', 'ldwarf', 'm1', 'mars', 'medusa', 'mercury', 'moon', 'nebula', 'oefner', 'pillars', 'pleiades', 'saturn', 'sun', 'tdwarf', 'ydwarf'],
+  cInterval: '',
 
   initialize: function() {
-    console.log("Beginning game");
-    oldCards = document.querySelectorAll(".card-container")
-    if (oldCards.length > 0) {
-      for (i = 0; i < oldCards.length; i++){
-        document.querySelector(".card-area").removeChild(oldCards[i]);
-      }
-    }
+    this.cleanOldCards();
     this.deck = [];
     this.moves = 0;
     this.activeCard = undefined;
     this.matches = 0;
     this.busy = false;
     this.checkTheme();
-    this.numCards = this.deckTheme.length * 2;
     this.numSymbols = this.deckTheme.length;
     this.timer();
     this.populateCards();
@@ -26,25 +20,25 @@ concentration = {
     this.displayCards();
   },
 
+  cleanOldCards: function() {
+    oldCards = document.querySelectorAll(".card-container")
+    if (oldCards.length > 0) {
+      for (i = 0; i < oldCards.length; i++){
+        document.querySelector(".card-area").removeChild(oldCards[i]);
+      }
+    }
+  },
+
   timer: function() {
-    console.log("timer invoked")
     seconds = 00;
     minutes = 00;
     var appendSeconds = document.querySelector(".seconds");
     var appendMinutes = document.querySelector(".minutes");
-    cInterval = setInterval(startTimer, 1000);
+    this.cInterval = setInterval(startTimer, 1000);
     function startTimer() {
-      if (concentration.matches==concentration.numSymbols){
-        clearInterval(cInterval);
-        winMessage = document.createElement("div");
-        winMessage.classList.add("message");
-        winMessage.innerHTML = "It took you " + minutes + " minutes and " + seconds + " seconds!";
-        document.querySelector(".messages").appendChild(winMessage);
-      }
       seconds++;
       if (seconds < 10) {
         appendSeconds.innerHTML = "0" + seconds;
-  //      appendMinutes.innerHTML = "00"
       }
       else if (seconds < 60) {
         appendSeconds.innerHTML = seconds;
@@ -78,13 +72,13 @@ concentration = {
       this.deckTheme = this.space.slice(0, this.space.length);
       playArea.style.width = "720px";
     }
-    shButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
-    anButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
-    spButton.addEventListener("click", function() {clearInterval(cInterval); playGame()});
+    shButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
+    anButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
+    spButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
   },
 
   populateCards: function() {
-    for (var i = 0; i < this.numCards/2; i++){
+    for (var i = 0; i < this.numSymbols; i++){
       this.deck.push(this.deckTheme[i]);
       this.deck.push(this.deckTheme[i]);
     }
@@ -102,12 +96,12 @@ concentration = {
 
   displayCards: function(){
     for(var i = 0; i < this.deck.length; i++){
-      // make card slot
+      // card slot
       cardCont = document.createElement("div");
       cardCont.classList.add("card-container", "con" + parseInt(i));
       document.querySelector(".card-area").appendChild(cardCont);
 
-      // make card front
+      // card front
       cardID = this.deck[i];
       cardDiv = document.createElement("div");
       cardDiv.classList.add(cardID, "card");
@@ -115,12 +109,12 @@ concentration = {
       imageLoc = "url(images/" + this.theme + "/" + cardID + ".jpg)";
       cardDiv.style.backgroundImage = imageLoc;
 
-      // make card back
+      // card back
       cardBack = document.createElement("div");
       cardBack.classList.add("layer", cardID);
       document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
 
-      //make card listener
+      // card listener
       cardBack.addEventListener("click", this.playCard);
     }
   },
@@ -155,28 +149,18 @@ concentration = {
   },
 
   winnerIsYou: function(){
-    setTimeout(playGame, 5000);
-  }
-}
+    clearInterval(this.cInterval);
+    winMessage = document.createElement("div");
+    winMessage.classList.add("message");
+    winMessage.innerHTML = "It took you " + minutes + " minutes and " + seconds + " seconds!";
+    document.querySelector(".messages").appendChild(winMessage);
+    setTimeout(this.playGame, 5000);
+  },
 
-pageSettings = {
-  showInstructions: function() {
-    instButton = document.querySelector(".inst-container button");
-    instButton.addEventListener("click", function() {
-      instText = document.querySelector(".inst-container p");
-      if (instText.style.visibility == "visible"){
-        instText.style.visibility = "hidden";
-      }
-      else {
-        instText.style.visibility = "visible";
-      }
-    })
+  playGame() {
+    concentration.initialize();
   }
-}
-
-function playGame(){
-  concentration.initialize();
 }
 
 pageSettings.showInstructions();
-playGame();
+concentration.playGame();
