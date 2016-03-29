@@ -3,8 +3,8 @@ concentration = {
   // lists of potential card faces - to switch, change this.theme
   // and deckTheme in initialize
   shapes: ['triangle', 'square', 'circle', 'parallelogram', 'pentagon', 'octagon', 'hexagon', 'rectangle'],
+  animals: ['sheep', 'cow', 'cat', 'pig', 'bird', 'octopus', 'fox', 'dog'],
   // deck variables
-  theme: "shapes",
   numCards: 16,
   numSymbols: 8,
   minutes: 00,
@@ -18,35 +18,20 @@ concentration = {
         document.querySelector(".card-area").removeChild(oldCards[i]);
       }
     }
-    this.deckTheme = this.shapes.slice(0, this.shapes.length),
     this.deck = [];
     this.moves = 0;
     this.activeCard = undefined;
     this.matches = 0;
     this.busy = false;
+    this.checkTheme();
     this.timer();
-    this.instructions();
     this.populateCards();
     this.shuffleCards();
     this.displayCards();
   },
 
-  instructions: function() {
-    instButton = document.querySelector(".inst-container button");
-    instButton.addEventListener("click", function() {
-      instText = document.querySelector(".inst-container p");
-      if (instText.style.visibility == "visible"){
-        instText.style.visibility = "hidden";
-      }
-      else {
-        instText.style.visibility = "visible";
-      }
-    })
-  },
-
   //set the timer!
   timer: function() {
-
     seconds = 00;
     minutes = 00;
     var appendSeconds = document.querySelector(".seconds");
@@ -77,7 +62,21 @@ concentration = {
     }
   },
 
-  //create the deck
+  checkTheme: function() {
+    shButton = document.querySelector("#shapes-button");
+    anButton = document.querySelector("#animals-button");
+    if (shButton.checked) {
+      this.theme = "shapes";
+      this.deckTheme = this.shapes.slice(0, this.shapes.length);
+    }
+    else if (anButton.checked) {
+      this.theme = "animals";
+      this.deckTheme = this.animals.slice(0, this.animals.length);
+    }
+    shButton.addEventListener("click", playGame)
+    anButton.addEventListener("click", playGame)
+  },
+
   populateCards: function() {
     for (var i = 0; i < this.numCards/2; i++){
       this.deck.push(this.deckTheme[i]);
@@ -85,7 +84,6 @@ concentration = {
     }
   },
 
-  // shuffle cards
   shuffleCards: function() {
     var deckRaw = this.deck.slice(0, this.deck.length);
     this.deck = []
@@ -158,8 +156,24 @@ concentration = {
   }
 }
 
+pageSettings = {
+  showInstructions: function() {
+    instButton = document.querySelector(".inst-container button");
+    instButton.addEventListener("click", function() {
+      instText = document.querySelector(".inst-container p");
+      if (instText.style.visibility == "visible"){
+        instText.style.visibility = "hidden";
+      }
+      else {
+        instText.style.visibility = "visible";
+      }
+    })
+  }
+}
+
 function playGame(){
   concentration.initialize();
 }
 
-playGame()
+pageSettings.showInstructions();
+playGame();
