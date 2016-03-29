@@ -1,14 +1,8 @@
-
 concentration = {
-  // lists of potential card faces - to switch, change this.theme
-  // and deckTheme in initialize
+
   shapes: ['triangle', 'square', 'circle', 'parallelogram', 'pentagon', 'octagon', 'hexagon', 'rectangle'],
   animals: ['sheep', 'cow', 'cat', 'pig', 'bird', 'octopus', 'fox', 'dog'],
-  // deck variables
-  numCards: 16,
-  numSymbols: 8,
-  minutes: 00,
-  seconds: 00,
+  space: ['crab1', 'crab2', 'eagle', 'jupiter', 'ldwarf', 'm1', 'mars', 'medusa', 'mercury', 'moon', 'nebula', 'oefner', 'pillars', 'pleiades', 'saturn', 'sun', 'tdwarf', 'ydwarf'],
 
   initialize: function() {
     console.log("Beginning game");
@@ -24,13 +18,16 @@ concentration = {
     this.matches = 0;
     this.busy = false;
     this.checkTheme();
+    this.numCards = this.deckTheme.length * 2;
+    this.numSymbols = this.deckTheme.length;
+    this.minutes = 00;
+    this.seconds = 00;
     this.timer();
     this.populateCards();
     this.shuffleCards();
     this.displayCards();
   },
 
-  //set the timer!
   timer: function() {
     seconds = 00;
     minutes = 00;
@@ -65,16 +62,26 @@ concentration = {
   checkTheme: function() {
     shButton = document.querySelector("#shapes-button");
     anButton = document.querySelector("#animals-button");
+    spButton = document.querySelector("#space-button");
+    playArea = document.querySelector(".card-area");
     if (shButton.checked) {
       this.theme = "shapes";
       this.deckTheme = this.shapes.slice(0, this.shapes.length);
+      playArea.style.width = "480px";
     }
     else if (anButton.checked) {
       this.theme = "animals";
       this.deckTheme = this.animals.slice(0, this.animals.length);
+      playArea.style.width = "480px";
     }
-    shButton.addEventListener("click", playGame)
-    anButton.addEventListener("click", playGame)
+    else if (spButton.checked) {
+      this.theme = "space";
+      this.deckTheme = this.space.slice(0, this.space.length);
+      playArea.style.width = "720px";
+    }
+    shButton.addEventListener("click", playGame);
+    anButton.addEventListener("click", playGame);
+    spButton.addEventListener("click", playGame);
   },
 
   populateCards: function() {
@@ -94,7 +101,6 @@ concentration = {
     }
   },
 
-  // display cards
   displayCards: function(){
     for(var i = 0; i < this.deck.length; i++){
       // make card slot
@@ -125,7 +131,6 @@ concentration = {
       concentration.moves++;
       //  player chooses first card
       if ((concentration.moves % 2) === 1) {
-        // turn over card
         this.style.opacity = 0;
         // activeCard gets clicked card's class
         activeCard = this.classList[1];
@@ -133,7 +138,6 @@ concentration = {
       }
       //  player chooses second card
       if ((concentration.moves % 2) === 0){
-        // turn over card
         this.style.opacity = 0;
         // if no match: wait 1 second, flip both back over
         if (activeCard != this.classList[1]){
