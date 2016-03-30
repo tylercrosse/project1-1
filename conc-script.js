@@ -139,7 +139,7 @@ concentration = {
       if ((concentration.moves % 2) === 0){
         this.style.opacity = 0;
         // if no match: wait 1 second, flip both back over
-        if (activeCard != this.classList[1]){
+        if ((activeCard != this.classList[1]) || (first === this)){
           concentration.busy = true;
           var self = this;
           setTimeout(function() {first.style.opacity = 1; self.style.opacity = 1; concentration.busy = false;}, 1000)
