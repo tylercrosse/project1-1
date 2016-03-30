@@ -98,21 +98,21 @@ concentration = {
     for(var i = 0; i < this.deck.length; i++){
       // card slot
       cardCont = document.createElement("div");
-      cardCont.classList.add("card-container", "con" + parseInt(i));
+      cardCont.classList.add("card-container", "con" + i);
       document.querySelector(".card-area").appendChild(cardCont);
 
       // card front
       cardID = this.deck[i];
       cardDiv = document.createElement("div");
       cardDiv.classList.add(cardID, "card");
-      document.querySelector(".con"+ parseInt(i)).appendChild(cardDiv);
+      document.querySelector(".con"+ i).appendChild(cardDiv);
       imageLoc = "url(images/" + this.theme + "/" + cardID + ".jpg)";
       cardDiv.style.backgroundImage = imageLoc;
 
       // card back
       cardBack = document.createElement("div");
       cardBack.classList.add("layer", cardID);
-      document.querySelector(".con" + parseInt(i)).appendChild(cardBack);
+      document.querySelector(".con" + i).appendChild(cardBack);
 
       // card listener
       cardBack.addEventListener("click", this.playCard);
@@ -140,6 +140,8 @@ concentration = {
         }
         else {
           concentration.matches++;
+          this.style.opacity = 0.6;
+          first.style.opacity = 0.6;
           if(concentration.matches===concentration.numSymbols){
             concentration.winnerIsYou();
           }
