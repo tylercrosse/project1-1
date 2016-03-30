@@ -38,6 +38,8 @@ concentration = {
     minutes = 00;
     var appendSeconds = document.querySelector(".seconds");
     var appendMinutes = document.querySelector(".minutes");
+    appendSeconds.innerHTML = "00";
+    appendMinutes.innerHTML = "00";
     this.cInterval = setInterval(startTimer, 1000);
     function startTimer() {
       seconds++;
@@ -174,7 +176,6 @@ concentration = {
   },
 
   winningAnimation() {
-    // not necessary
     var maxY = document.getElementsByTagName('body')[0].clientWidth;
     toMove = document.querySelector(".moveme");
     toMove.style.margin="0px 0px 0px " + concentration.y + "px";
