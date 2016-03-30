@@ -82,6 +82,19 @@ button {
   height: 100%;
 }
 
+.congrats {
+  font-size: 30px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 120px;
+  width: 100%;
+}
+
+.moveMe {
+  left: 0;
+}
+
 .row:before,
 .row:after {
     content: " ";

@@ -4,6 +4,8 @@ concentration = {
   animals: ['sheep', 'cow', 'cat', 'pig', 'bird', 'octopus', 'fox', 'dog'],
   space: ['crab1', 'crab2', 'eagle', 'jupiter', 'ldwarf', 'm1', 'mars', 'medusa', 'mercury', 'moon', 'nebula', 'oefner', 'pillars', 'pleiades', 'saturn', 'sun', 'tdwarf', 'ydwarf'],
   cInterval: '',
+  animation: '',
+  numGames: 0,
 
   initialize: function() {
     this.cleanOldCards();
@@ -12,6 +14,8 @@ concentration = {
     this.activeCard = undefined;
     this.matches = 0;
     this.busy = false;
+    this.o = 0;
+    this.y = -(document.getElementsByTagName('body')[0].clientWidth/2);
     this.checkTheme();
     this.numSymbols = this.deckTheme.length;
     this.timer();
@@ -97,20 +101,20 @@ concentration = {
   displayCards: function(){
     for(var i = 0; i < this.deck.length; i++){
       // card slot
-      cardCont = document.createElement("div");
+      var cardCont = document.createElement("div");
       cardCont.classList.add("card-container", "con" + i);
       document.querySelector(".card-area").appendChild(cardCont);
 
       // card front
-      cardID = this.deck[i];
-      cardDiv = document.createElement("div");
+      var cardID = this.deck[i];
+      var cardDiv = document.createElement("div");
       cardDiv.classList.add(cardID, "card");
       document.querySelector(".con"+ i).appendChild(cardDiv);
-      imageLoc = "url(images/" + this.theme + "/" + cardID + ".jpg)";
+      var imageLoc = "url(images/" + this.theme + "/" + cardID + ".jpg)";
       cardDiv.style.backgroundImage = imageLoc;
 
       // card back
-      cardBack = document.createElement("div");
+      var cardBack = document.createElement("div");
       cardBack.classList.add("layer", cardID);
       document.querySelector(".con" + i).appendChild(cardBack);
 
@@ -151,12 +155,42 @@ concentration = {
   },
 
   winnerIsYou: function(){
+    this.startWinningAnimation();
     clearInterval(this.cInterval);
+    this.numGames++;
     winMessage = document.createElement("div");
     winMessage.classList.add("message");
-    winMessage.innerHTML = "It took you " + minutes + " minutes and " + seconds + " seconds!";
+    winMessage.innerHTML = "Game " + this.numGames + ": It took you " + minutes + " minutes and " + seconds + " seconds to complete the " + this.theme + " board!";
     document.querySelector(".messages").appendChild(winMessage);
-    setTimeout(this.playGame, 5000);
+    setTimeout(this.playGame, 10000);
+  },
+
+  startWinningAnimation: function() {
+    var woo = document.createElement("div");
+    woo.classList.add("moveme");
+    woo.innerHTML = "woohoo! you found all the matches!";
+    document.querySelector(".congrats").appendChild(woo);
+    concentration.animation = setInterval(concentration.winningAnimation, 1);
+  },
+
+  winningAnimation() {
+    // not necessary
+    var maxY = document.getElementsByTagName('body')[0].clientWidth;
+    toMove = document.querySelector(".moveme");
+    toMove.style.margin="0px 0px 0px " + concentration.y + "px";
+    concentration.y ++;
+    if (concentration.y < 300 && concentration.o < 1.0){
+      concentration.o += 0.005;
+      toMove.style.opacity = concentration.o;
+    }
+    else if (concentration.y > maxY - 400){
+      concentration.o -= 0.005;
+      toMove.style.opacity = concentration.o;
+    }
+    if (concentration.y > maxY - 200){
+      clearInterval(concentration.animation);
+      document.querySelector(".congrats").removeChild(toMove);
+    }
   },
 
   playGame() {
