@@ -83,11 +83,11 @@ button {
 }
 
 .congrats {
-  font-size: 30px;
+  font-size: 40px;
   position: absolute;
   left: 0;
   bottom: 0;
-  height: 120px;
+  height: 80px;
   width: 100%;
 }
 

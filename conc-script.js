@@ -188,7 +188,7 @@ concentration = {
       concentration.o -= 0.005;
       toMove.style.opacity = concentration.o;
     }
-    if (concentration.y > maxY - 200){
+    if (concentration.y > maxY - 250){
       clearInterval(concentration.animation);
       document.querySelector(".congrats").removeChild(toMove);
     }
