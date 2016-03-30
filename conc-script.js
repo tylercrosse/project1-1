@@ -78,9 +78,9 @@ concentration = {
       this.deckTheme = this.space.slice(0, this.space.length);
       playArea.style.width = "720px";
     }
-    shButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
-    anButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
-    spButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
+    shButton.addEventListener("click", function() {if (!concentration.busy){clearInterval(concentration.cInterval); concentration.playGame()}});
+    anButton.addEventListener("click", function() {if (!concentration.busy){clearInterval(concentration.cInterval); concentration.playGame()}});
+    spButton.addEventListener("click", function() {if (!concentration.busy){clearInterval(concentration.cInterval); concentration.playGame()}});
   },
 
   populateCards: function() {
@@ -157,6 +157,7 @@ concentration = {
   },
 
   winnerIsYou: function(){
+    this.busy=true;
     this.startWinningAnimation();
     clearInterval(this.cInterval);
     this.numGames++;
