@@ -17,10 +17,24 @@ body {
 
 button {
   margin-top: 45px;
+  margin-left: 20px;
   color: darkslategrey;
   padding: 10px;
-  font-size: 15px;
+  font-size: 20px;
   background-color: #cc99cc;
+}
+
+input[type="radio"] {
+  transform: scale(2);
+}
+
+.theme-choices p {
+  font-size: 22px;
+}
+
+.theme-choices {
+  font-size: 18px;
+  line-height: 30px;
 }
 
 .message {
@@ -83,11 +97,11 @@ button {
 }
 
 .congrats {
-  font-size: 40px;
-  position: absolute;
+  font-size: 44px;
+  position: fixed;
   left: 0;
   bottom: 0;
-  height: 40px;
+  height: 44px;
   width: 100%;
 }
 
