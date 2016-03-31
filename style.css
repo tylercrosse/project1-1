@@ -1,9 +1,10 @@
 body {
-  background-color: #663366;
   color: #cc99cc;
   box-sizing: border-box;
   font-family: sans-serif;
   text-align: center;
+  background-image: url("images/backgrounds/shapesbackground.png");
+  background-size: cover;
 }
 
 .heading {
@@ -30,11 +31,15 @@ input[type="radio"] {
 
 .theme-choices p {
   font-size: 22px;
+
 }
 
 .theme-choices {
   font-size: 18px;
   line-height: 28px;
+  background-color: #666699;
+  border-radius: 30px;
+  padding-bottom: 11px;
 }
 
 .message {
@@ -57,6 +62,9 @@ input[type="radio"] {
 
 .inst-container p {
   visibility: hidden;
+  background-color: #666699;
+  border-radius: 30px;
+  padding: 5px;
 }
 
 .card-area {

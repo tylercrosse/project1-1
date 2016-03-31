@@ -67,16 +67,19 @@ concentration = {
       this.theme = "shapes";
       this.deckTheme = this.shapes.slice(0, this.shapes.length);
       playArea.style.width = "480px";
+      document.body.style.backgroundImage = "url('images/backgrounds/shapesbackground.png')"
     }
     else if (anButton.checked) {
       this.theme = "animals";
       this.deckTheme = this.animals.slice(0, this.animals.length);
       playArea.style.width = "480px";
+            document.body.style.backgroundImage = "url('images/backgrounds/animalsbackground.png')"
     }
     else if (spButton.checked) {
       this.theme = "space";
       this.deckTheme = this.space.slice(0, this.space.length);
       playArea.style.width = "720px";
+            document.body.style.backgroundImage = "url('images/backgrounds/spacebackground.png')"
     }
     shButton.addEventListener("click", function() {if (!concentration.busy){clearInterval(concentration.cInterval); concentration.playGame()}});
     anButton.addEventListener("click", function() {if (!concentration.busy){clearInterval(concentration.cInterval); concentration.playGame()}});
