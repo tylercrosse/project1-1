@@ -151,6 +151,8 @@ concentration = {
           concentration.matches++;
           this.style.opacity = 0.6;
           first.style.opacity = 0.6;
+          this.removeEventListener("click", concentration.playCard)
+          first.removeEventListener("click", concentration.playCard)
           if(concentration.matches===concentration.numSymbols){
             concentration.winnerIsYou();
           }
