@@ -18,10 +18,16 @@ concentration = {
     this.y = -(document.getElementsByTagName('body')[0].clientWidth/2);
     this.checkTheme();
     this.numSymbols = this.deckTheme.length;
+    this.resetButton();
     this.timer();
     this.populateCards();
     this.shuffleCards();
     this.displayCards();
+  },
+
+  resetButton() {
+    resetButton = document.querySelector(".reset button");
+    resetButton.addEventListener("click", concentration.playGame);
   },
 
   cleanOldCards: function() {
