@@ -174,10 +174,13 @@ concentration = {
   },
 
   startWinningAnimation: function() {
+    var congrats = document.createElement("div");
+    congrats.classList.add("congrats", "row");
+    document.body.appendChild(congrats)
     var woo = document.createElement("div");
     woo.classList.add("moveme");
     woo.innerHTML = "woohoo! you found all the matches!";
-    document.querySelector(".congrats").appendChild(woo);
+    congrats.appendChild(woo);
     concentration.animation = setInterval(concentration.winningAnimation, 1);
   },
 
@@ -197,6 +200,7 @@ concentration = {
     if (concentration.y > maxY - 250){
       clearInterval(concentration.animation);
       document.querySelector(".congrats").removeChild(toMove);
+      document.body.removeChild(document.querySelector(".congrats"))
     }
   },
 
