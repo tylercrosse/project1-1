@@ -27,7 +27,7 @@ concentration = {
 
   resetButton() {
     resetButton = document.querySelector(".reset button");
-    resetButton.addEventListener("click", concentration.playGame);
+    resetButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
   },
 
   cleanOldCards: function() {
