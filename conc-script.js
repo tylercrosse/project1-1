@@ -25,6 +25,9 @@ concentration = {
     this.displayCards();
   },
 
+  // This format of method definitions was introduced in ES6, but
+  // unfortunately isn't universally supported.
+  // Most modern browsers will run it but it will throw an error on older browsers.
   resetButton() {
     resetButton = document.querySelector(".reset button");
     resetButton.addEventListener("click", function() {clearInterval(concentration.cInterval); concentration.playGame()});
@@ -134,6 +137,7 @@ concentration = {
     }
   },
 
+  // Great use of commenting to increase the readability of the code! :+1:
   playCard: function() {
     if (concentration.busy === false){
       concentration.moves++;
@@ -146,6 +150,10 @@ concentration = {
       }
       //  player chooses second card
       if ((concentration.moves % 2) === 0){
+      // It might be nice to break out the contents of this if statement into
+      // a separate function and pass it the current context with .bind().
+      // Two shorter functions are generally better than one really long
+      // espcially if it has a bunch of nested blocks.
         this.style.opacity = 0;
         // if no match: wait 1 second, flip both back over
         if ((activeCard != this.classList[1]) || (first === this)){
@@ -190,6 +198,13 @@ concentration = {
     concentration.animation = setInterval(concentration.winningAnimation, 1);
   },
 
+  // It's awesome that you added this animation! Typically it's considered
+  // a best practice to do animations with CSS instad of with javascript.
+  // This is because javascript animations can 'tie up the callstack' a.k.a.
+  // they can prevent javascript from running other functions while they are
+  // taking place. CSS animations can be triggered with javascript by adding
+  // and removing CSS classes that contain the CSS animation. I made a codepen to
+  // illustrate how this could be accomplished http://codepen.io/crosset/pen/NNXLWO
   winningAnimation() {
     var maxY = document.getElementsByTagName('body')[0].clientWidth;
     toMove = document.querySelector(".moveme");
